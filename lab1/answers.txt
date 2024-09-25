@@ -28,20 +28,20 @@ The F1 score is calculated as follows: F1 score = (2 * Precision * Recall) / (Pr
 ============================================================
 | Program   | Ground Truth  |     AFL      |      CSA      |   
 |===========================================================
-| test0.c   |               |              |               |       
-| test1.c   |               |              |               |         
-| test2.c   |               |              |               |       
-| test3.c   |               |              |               |       
-| test4.c   |               |              |               |         
-| test5.c   |               |              |               |          
-| test6.c   |               |              |               |           
-| test7.c   |               |              |               |           
-| test8.c   |               |              |               |          
-| test9.c   |               |              |               |            
+| test0.c   |right          |accept        |accept               |       
+| test1.c   |wrong          |reject        |accept               |         
+| test2.c   |wrong          |reject        |reject               |       
+| test3.c   |right          |accept        |accept               |       
+| test4.c   |right          |accept        |accept               |         
+| test5.c   |wrong          |accept        |reject               |          
+| test6.c   |right          |accept        |accept               |           
+| test7.c   |wrong          |reject        |accept               |           
+| test8.c   |wrong          |accept        |reject               |          
+| test9.c   |right          |reject        |reject               |            
 |===========================================================
-| Precision |               |              |               |  
-| Recall    |               |              |               |
-| F1 score  |               |              |               |
+| Precision |               |0.667         |0.667               |  
+| Recall    |               |0.800         |0.800               |
+| F1 score  |               |0.727         |0.727               |
 ============================================================
 
 Part B: Answer the below questions. Provide short
@@ -49,11 +49,57 @@ explanations to justify your answers.
 
 Question 1: From the given programs, can AFL be a sound analysis? Can it be complete?
 
+Can AFL be a sound analysis? 
+No. AFL is a fuzzing tool that aims to find crashes, hangs, 
+and other errors in programs by automatically generating test inputs. It does not provide
+a mathematical proof of correctness or absence of errors in the program, therefore it 
+cannot be considered a sound analysis. Soundness in software analysis refers to the property
+that if the analysis reports a certain property holds (e.g., the program is safe), 
+then that property indeed holds in reality. AFL does not guarantee this.
+
+Can AFL be complete? 
+No. AFL is not designed to be complete, meaning it cannot guarantee
+that it will find all possible errors in a program. It relies on heuristics and random 
+input generation, which limits its ability to explore the entire input space of a program. 
+Therefore, AFL may miss some errors, especially those that require specific or complex input patterns.
 
 
 Question 2: From the given programs, can CSA be a sound analysis? Can it be complete?
 
+Can CSA be a sound analysis?
+It depends on the implementation and the specific properties being analyzed. In general,
+CSA (Context-Sensitive Analysis) can be designed to be sound for certain properties, 
+such as reachability or safety properties. However, achieving soundness requires careful
+consideration of aliasing, control flow, and data flow, which can be complex and computationally
+expensive. Without these considerations, CSA may report false positives or negatives, violating soundness.
+
+Can CSA be complete? 
+No. Similar to AFL, CSA is not inherently complete. Depending on the properties being
+analyzed and the constraints of the analysis (e.g., time, memory), CSA may not be able
+to explore all possible paths or states of a program. This limitation means that CSA
+may miss some errors, particularly those that require analyzing a large number of paths or states.
 
 
 Question 3: What are the pros and cons of using the CSA to find divide-by-zero errors?  Comment
 on both the accuracy and cost of the analyzer under these two domains.
+
+Pros of using CSA to find divide-by-zero errors:
+
+1.CSA can potentially detect divide-by-zero errors more accurately than some other analysis techniques
+by considering the context in which operations occur. For example, it can track the flow of data and
+detect when a variable used as a divisor may become zero.
+2.CSA can provide more detailed information about the cause and location of the error, which can aid
+in debugging and fixing the issue.
+
+Cons of using CSA to find divide-by-zero errors:
+
+1.CSA can be computationally expensive, especially for large or complex programs. This can make it 
+impractical to run on a regular basis or for every code change.
+2.CSA may not be able to detect all divide-by-zero errors, particularly those that require analyzing
+a large number of paths or states. This can lead to false negatives.
+
+Accuracy: CSA can be designed to be highly accurate for detecting divide-by-zero errors, but achieving
+this requires careful implementation and consideration of various factors such as aliasing, control flow, and data flow.
+
+Cost: The cost of CSA can be high, both in terms of computation time and resources required. This can
+make it impractical for use in certain contexts or limit its applicability to smaller or less complex programs.
