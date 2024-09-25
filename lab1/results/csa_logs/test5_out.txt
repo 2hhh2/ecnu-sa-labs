@@ -1,0 +1,32 @@
+Ubuntu clang version 18.0.0 (++20230913091739+8ebe1d1cc1e4-1~exp1~20230913091838.1500)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/13
+Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/4.8.5
+Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/7
+Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0
+Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/8
+Selected GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/13
+Candidate multilib: .;@m64
+Selected multilib: .;@m64
+ (in-process)
+ "/usr/lib/llvm-18/bin/clang" -cc1 -triple x86_64-pc-linux-gnu -analyze -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name test5.c -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -setup-static-analyzer -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/lab1 -v -fcoverage-compilation-dir=/lab1 -resource-dir /usr/lib/llvm-18/lib/clang/18 -internal-isystem /usr/lib/llvm-18/lib/clang/18/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -fgnuc-version=4.2.1 -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o test5.plist -x c c_programs/test5.c
+clang -cc1 version 18.0.0 based upon LLVM 18.0.0 default target x86_64-pc-linux-gnu
+ignoring nonexistent directory "/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../x86_64-linux-gnu/include"
+ignoring nonexistent directory "/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/lib/llvm-18/lib/clang/18/include
+ /usr/local/include
+ /usr/include/x86_64-linux-gnu
+ /usr/include
+End of search list.
+c_programs/test5.c:21:7: warning: Value stored to 'b' during its initialization is never read [deadcode.DeadStores]
+   21 |   int b = 1 / a;
+      |       ^   ~~~~~
+c_programs/test5.c:21:13: warning: Division by zero [core.DivideZero]
+   21 |   int b = 1 / a;
+      |           ~~^~~
+2 warnings generated.
